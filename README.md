@@ -1,36 +1,40 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Next.js Supabase 인증 시스템
 
-## Getting Started
+이 프로젝트는 Next.js와 Supabase를 사용하여 구현된 인증 시스템입니다.
 
-First, run the development server:
+## 기능
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- 이메일/비밀번호 회원가입 및 로그인
+- Google 소셜 로그인
+- 사용자 프로필 페이지
+- 인증 상태에 따른 접근 제어
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 설치 및 실행
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+1. 저장소 클론:
+   ```bash
+   git clone https://github.com/your-username/your-repository-name.git
+   cd your-repository-name
+   ```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+2. 의존성 설치:
+   ```bash
+   npm install
+   ```
 
-## Learn More
+3. 환경 변수 설정:
+   `.env.example` 파일을 `.env.local`로 복사하고 Supabase 프로젝트의 URL과 anon key를 입력합니다.
 
-To learn more about Next.js, take a look at the following resources:
+4. 개발 서버 실행:
+   ```bash
+   npm run dev
+   ```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+5. 브라우저에서 `http://localhost:3000` 접속
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 기술 스택
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Next.js 14
+- Supabase (인증 및 데이터베이스)
+- TypeScript
+- Tailwind CSS
