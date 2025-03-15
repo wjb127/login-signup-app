@@ -33,17 +33,17 @@ export default function SocialLogin({ redirectTo = '/' }: SocialLoginProps) {
   };
 
   return (
-    <div className="flex flex-col gap-3 w-full">
-      <div className="relative flex items-center justify-center my-4">
-        <div className="border-t border-gray-300 w-full"></div>
-        <div className="bg-white px-3 text-sm text-gray-500">또는</div>
-        <div className="border-t border-gray-300 w-full"></div>
+    <div className="mt-6">
+      <div className="relative flex items-center justify-center my-6">
+        <div className="border-t border-neutral-200 w-full"></div>
+        <div className="bg-white px-4 text-sm text-neutral-500">또는</div>
+        <div className="border-t border-neutral-200 w-full"></div>
       </div>
       
       <button
         onClick={() => handleSocialLogin('google')}
         disabled={loading === 'google'}
-        className="flex items-center justify-center gap-2 w-full py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+        className="w-full rounded-lg bg-white px-4 py-3 text-center font-medium text-neutral-700 shadow-sm ring-1 ring-neutral-200 hover:bg-neutral-50 transition-colors flex items-center justify-center gap-3"
       >
         <svg className="h-5 w-5" viewBox="0 0 24 24">
           <path
@@ -63,7 +63,7 @@ export default function SocialLogin({ redirectTo = '/' }: SocialLoginProps) {
             fill="#EA4335"
           />
         </svg>
-        {loading === 'google' ? '처리 중...' : 'Google로 로그인'}
+        {loading === 'google' ? '처리 중...' : 'Google로 계속하기'}
       </button>
     </div>
   );

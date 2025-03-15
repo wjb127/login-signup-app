@@ -39,22 +39,23 @@ export default function SignUp() {
   };
 
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center p-4">
-      <div className="w-full max-w-md space-y-8 rounded-lg bg-white p-6 shadow-md">
-        <div>
-          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">회원가입</h2>
+    <div className="flex min-h-screen flex-col items-center justify-center py-12">
+      <div className="w-full max-w-md">
+        <div className="mb-8 text-center">
+          <h2 className="text-3xl font-bold tracking-tight text-neutral-900">회원가입</h2>
+          <p className="mt-2 text-neutral-500">새 계정을 만드세요</p>
         </div>
         
-        {error && (
-          <div className="rounded-md bg-red-50 p-4">
-            <div className="text-sm text-red-700">{error}</div>
-          </div>
-        )}
-        
-        <form className="mt-8 space-y-6" onSubmit={handleSignUp}>
-          <div className="space-y-4 rounded-md shadow-sm">
+        <div className="overflow-hidden rounded-xl bg-white p-8 shadow-sm ring-1 ring-neutral-200">
+          {error && (
+            <div className="mb-6 rounded-lg bg-red-50 p-4 text-sm text-red-700">
+              {error}
+            </div>
+          )}
+          
+          <form className="space-y-6" onSubmit={handleSignUp}>
             <div>
-              <label htmlFor="email" className="sr-only">
+              <label htmlFor="email" className="block text-sm font-medium text-neutral-700 mb-1">
                 이메일
               </label>
               <input
@@ -63,14 +64,15 @@ export default function SignUp() {
                 type="email"
                 autoComplete="email"
                 required
-                className="relative block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500"
-                placeholder="이메일"
+                className="block w-full rounded-lg border-0 py-3 px-4 text-neutral-900 shadow-sm ring-1 ring-inset ring-neutral-200 placeholder:text-neutral-400 focus:ring-2 focus:ring-inset focus:ring-neutral-900"
+                placeholder="name@example.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
             </div>
+            
             <div>
-              <label htmlFor="password" className="sr-only">
+              <label htmlFor="password" className="block text-sm font-medium text-neutral-700 mb-1">
                 비밀번호
               </label>
               <input
@@ -79,34 +81,32 @@ export default function SignUp() {
                 type="password"
                 autoComplete="new-password"
                 required
-                className="relative block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500"
-                placeholder="비밀번호"
+                className="block w-full rounded-lg border-0 py-3 px-4 text-neutral-900 shadow-sm ring-1 ring-inset ring-neutral-200 placeholder:text-neutral-400 focus:ring-2 focus:ring-inset focus:ring-neutral-900"
+                placeholder="••••••••"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
             </div>
-          </div>
 
-          <div>
             <button
               type="submit"
               disabled={loading}
-              className="group relative flex w-full justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+              className="w-full rounded-lg bg-neutral-900 px-4 py-3 text-center font-medium text-white hover:bg-neutral-800 transition-colors"
             >
               {loading ? '처리 중...' : '회원가입'}
             </button>
+          </form>
+          
+          <SocialLogin redirectTo="/login?message=소셜 계정으로 회원가입이 완료되었습니다." />
+          
+          <div className="mt-6 text-center">
+            <p className="text-sm text-neutral-500">
+              이미 계정이 있으신가요?{' '}
+              <Link href="/login" className="font-medium text-neutral-900 hover:text-neutral-700">
+                로그인
+              </Link>
+            </p>
           </div>
-        </form>
-        
-        <SocialLogin redirectTo="/login?message=소셜 계정으로 회원가입이 완료되었습니다." />
-        
-        <div className="mt-4 text-center">
-          <p className="text-sm text-gray-600">
-            이미 계정이 있으신가요?{' '}
-            <Link href="/login" className="font-medium text-indigo-600 hover:text-indigo-500">
-              로그인
-            </Link>
-          </p>
         </div>
       </div>
     </div>
