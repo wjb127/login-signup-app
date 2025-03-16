@@ -1,26 +1,38 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { supabase } from '@/lib/supabase';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import SocialLogin from '@/components/SocialLogin';
 
-export default function Login() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const [message, setMessage] = useState<string | null>(null);
-  const router = useRouter();
+// SearchParams를 사용하는 컴포넌트를 분리
+function LoginMessage() {
   const searchParams = useSearchParams();
-
+  const [message, setMessage] = useState<string | null>(null);
+  
   useEffect(() => {
     const msg = searchParams.get('message');
     if (msg) {
       setMessage(msg);
     }
   }, [searchParams]);
+  
+  if (!message) return null;
+  
+  return (
+    <div className="mb-6 rounded-lg bg-green-50 p-4 text-sm text-green-700">
+      {message}
+    </div>
+  );
+}
+
+export default function Login() {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const router = useRouter();
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -40,8 +52,12 @@ export default function Login() {
       if (data.user) {
         router.push('/');
       }
-    } catch (error: any) {
-      setError(error.message || '로그인 중 오류가 발생했습니다.');
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        setError(error.message || '로그인 중 오류가 발생했습니다.');
+      } else {
+        setError('로그인 중 오류가 발생했습니다.');
+      }
     } finally {
       setLoading(false);
     }
@@ -56,11 +72,10 @@ export default function Login() {
         </div>
         
         <div className="overflow-hidden rounded-xl bg-white p-8 shadow-sm ring-1 ring-neutral-200">
-          {message && (
-            <div className="mb-6 rounded-lg bg-green-50 p-4 text-sm text-green-700">
-              {message}
-            </div>
-          )}
+          {/* Suspense로 감싸기 */}
+          <Suspense fallback={null}>
+            <LoginMessage />
+          </Suspense>
           
           {error && (
             <div className="mb-6 rounded-lg bg-red-50 p-4 text-sm text-red-700">

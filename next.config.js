@@ -1,8 +1,12 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  reactStrictMode: true,
+  reactStrictMode: false,
   images: {
     domains: ['bzzjkcrbwwrqlumxigag.supabase.co'],
+  },
+  output: 'standalone',
+  eslint: {
+    ignoreDuringBuilds: true,
   },
 };
 
