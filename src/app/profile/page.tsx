@@ -41,11 +41,44 @@ export default function ProfilePage() {
           .eq('id', user.id)
           .single();
         
-        if (error && error.code !== 'PGRST116') {
+        // PGRST116은 "결과가 없음" 오류 코드입니다.
+        if (error && error.code === 'PGRST116') {
+          console.log('프로필이 없습니다. 새 프로필을 생성합니다.');
+          
+          // 새 프로필 생성
+          const { error: insertError } = await supabase
+            .from('profiles')
+            .insert({
+              id: user.id,
+              updated_at: new Date().toISOString(),
+              full_name: null,
+              avatar_url: null,
+              website: null,
+              bio: null
+            });
+          
+          if (insertError) {
+            console.error('프로필 생성 오류:', insertError);
+          } else {
+            // 생성 후 다시 가져오기
+            const { data: newProfileData } = await supabase
+              .from('profiles')
+              .select('*')
+              .eq('id', user.id)
+              .single();
+            
+            if (newProfileData) {
+              setProfile(newProfileData);
+              setFormData({
+                full_name: newProfileData.full_name || '',
+                website: newProfileData.website || '',
+                bio: newProfileData.bio || '',
+              });
+            }
+          }
+        } else if (error) {
           console.error('프로필 데이터 가져오기 오류:', error);
-        }
-        
-        if (profileData) {
+        } else if (profileData) {
           setProfile(profileData);
           setFormData({
             full_name: profileData.full_name || '',
